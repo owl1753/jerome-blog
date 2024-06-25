@@ -50,6 +50,7 @@ export default {
     footer: <p>MIT 2023 © Nextra.</p>,
     head: ({title, meta}) => (
         <>
+            <title>{title}</title>
             {meta.description && (
                 <meta name="description" content={meta.description}/>
             )}
