@@ -35,11 +35,11 @@ import nextra from 'nextra';
 
 const withNextra = nextra({
     theme: 'nextra-theme-blog',
-    themeConfig: 'theme.config.tsx',
+    themeConfig: 'theme.config.tsx'
 });
 
 export default withNextra({
-    reactStrictMode: true,
+    reactStrictMode: true
 });
 ```
 
@@ -155,4 +155,43 @@ author: Jerome Sim
 ---
 ```
 
-작성한 글은 ```post``` 페이지에 자동으로 추가됩니다.
+작성한 글은 ```posts``` 페이지에 자동으로 추가됩니다.
+
+## 태그 추가하기
+1. ```src/pages/tags``` 폴더를 생성합니다.
+2. ```[tag].mdx```를 추가하고 다음과 같이 작성합니다.
+
+```mdx
+---
+type: tag
+title: Tagged Posts
+description: Posts tagged with TagName
+---
+
+import { useRouter } from 'next/router'
+
+export const TagName = () => {
+    const { tag } = useRouter().query
+    return tag || null
+}
+
+# Posts Tagged with “<TagName/>”
+```
+
+```type```을 ```tag```로 설정하면 태그 페이지로 인식하고, ```title```은 태그 페이지의 제목을 설정합니다.
+
+이제 특정 태그 페이지로 접속하면, 해당 태그를 가진 글 목록을 볼 수 있습니다.
+
+## 배포하기
+
+Nextra로 만든 블로그는 Next.js로 만든 웹사이트와 동일하게 Vercel에 배포할 수 있습니다.
+
+1. Vercel에 로그인합니다.
+2. New Project를 클릭합니다.
+3. Import Git Repository를 클릭합니다.
+4. Repository를 선택하고 Deploy를 클릭합니다.
+
+
+## Example
+
+더 다양한 예제는 [CodeSandbox](https://codesandbox.io/examples/package/nextra-theme-blog)에서 확인할 수 있습니다.

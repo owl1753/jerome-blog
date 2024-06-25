@@ -1,0 +1,17 @@
+---
+type: page
+title: Tags
+date: 2024-06-25
+---
+
+import { Tags } from "../../tags.constant";
+import Link from "next/link";
+
+# Tags
+<ul>
+{Tags.map((tag, index) => (
+    <li key={index}>
+        <Link href={`/tags/${tag}`}>{tag}</Link>
+    </li>
+))}
+</ul>
