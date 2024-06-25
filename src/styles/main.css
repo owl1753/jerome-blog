@@ -1,3 +1,12 @@
 img {
     margin: 0 !important;
 }
+
+.portfolio-title {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}

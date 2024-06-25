@@ -3,3 +3,26 @@ type: page
 title: Portfolios
 date: 2024-06-25
 ---
+
+import Image from 'next/image'
+import PortfolioTitle from "./PortfolioTitle";
+
+<PortfolioTitle id={'1'} title={'와쌤'} />
+
+<div id="portfolio1" style={{display: 'none'}}>
+    <Image
+        src="/images/wassem/wassem.jpg"
+        alt="와쌤"
+        width={200}
+        height={200}
+    />
+
+    ### 프로젝트 설명
+    전문 과외 매칭 업체 `와쌤 과외공부방`의 홈페이지를 제작했습니다.
+
+    ### 기술 스택
+    - React, Next.js, TypeScript, PHP, MySQL
+
+    ### 링크
+    [와쌤](https://wassem.co.kr)
+</div>
