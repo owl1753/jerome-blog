@@ -8,7 +8,7 @@ export default {
             )}
             {meta.tag && <meta name="keywords" content={meta.tag}/>}
             {meta.author && <meta name="author" content={meta.author}/>}
-
+            <meta name="naver-site-verification" content="5f4169cbe4d52118d83cdd80f1ca0040dfeebfa7"/>
         </>
     ),
     readMore: 'Read More →',
