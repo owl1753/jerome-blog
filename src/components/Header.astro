@@ -1,13 +1,31 @@
 ---
-
+const currentPathname = Astro.url.pathname;
+const links = [
+  {
+    title: "소개",
+    href: "/about",
+  },
+  {
+    title: "블로그",
+    href: "/blog",
+  },
+] as const;
 ---
 
 <header class="header">
   <div class="header-container">
     <a href="/" class="logo">Jerome's Blog</a>
     <nav class="nav">
-      <a href="/about" class="nav-link">소개</a>
-      <a href="/blog" class="nav-link">블로그</a>
+      {
+        links.map(({ title, href }) => (
+          <a
+            href={href}
+            class:list={["nav-link", { active: currentPathname == href }]}
+          >
+            {title}
+          </a>
+        ))
+      }
     </nav>
   </div>
 </header>
@@ -57,5 +75,9 @@
     font-weight: 500;
     line-height: normal;
     text-decoration: none;
+  }
+
+  .nav-link.active {
+    color: var(--brand-primary);
   }
 </style>

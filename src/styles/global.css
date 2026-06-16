@@ -1,3 +1,28 @@
 :root {
     --text-primary: #0F172A;
+    --text-secondary: #64748b;
+    --text-tertiary: #94A3B8;
+    
+    --border-default: #e2e8f0;
+
+    --bg-default: #FFFFFF;
+
+    --brand-primary: #6366F1;
+    --brand-secondary: #818cf8;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+p {
+    margin: 0;
 }
