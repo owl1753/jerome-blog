@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 const posts = await getCollection("blog");
 ---
@@ -32,7 +33,9 @@ const posts = await getCollection("blog");
           posts.map((post) => (
             <a class="post-card-link" href={`/blog/${post.id}`}>
               <div class="post-card-container">
-                <div class="post-card-thumbnail" />
+                <div class="post-card-thumbnail">
+                  <Image src={post.data.cover} alt={post.data.coverAlt} />
+                </div>
                 <div class="post-card-content">
                   <div class="post-card-text-group">
                     <span class="post-card-category">카테고리</span>
@@ -163,6 +166,7 @@ const posts = await getCollection("blog");
   }
 
   .post-card-thumbnail {
+    width: 100%;
     height: 200px;
     align-self: stretch;
   }
