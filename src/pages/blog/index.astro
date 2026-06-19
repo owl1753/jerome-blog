@@ -1,9 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { getImage } from "astro:assets";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 const fallbackCategory = "카테고리";
@@ -16,34 +17,40 @@ const fallbackCategory = "카테고리";
         {
           posts.length > 0 ? (
             <div class="post-list">
-              {posts.map((post) => (
-                <a class="post-list-link" href={`/blog/${post.id}`}>
-                  <article class="post-list-item">
-                    <div class="post-list-thumbnail" aria-hidden="true" />
+              {posts.map(async (post) => {
+                const image = await getImage({ src: post.data.cover });
+                return (
+                  <a class="post-list-link" href={`/blog/${post.id}`}>
+                    <article class="post-list-item">
+                      <div
+                        style={`background-image: url(${image.src})`}
+                        class="post-list-thumbnail"
+                      />
 
-                    <div class="post-list-content">
-                      <div class="post-list-text-group">
-                        <span class="post-list-category">
-                          {fallbackCategory}
-                        </span>
-                        <div class="post-list-title-group">
-                          <h2 class="post-list-title">{post.data.title}</h2>
-                          <p class="post-list-description">
-                            {post.data.description}
-                          </p>
+                      <div class="post-list-content">
+                        <div class="post-list-text-group">
+                          <span class="post-list-category">
+                            {fallbackCategory}
+                          </span>
+                          <div class="post-list-title-group">
+                            <h2 class="post-list-title">{post.data.title}</h2>
+                            <p class="post-list-description">
+                              {post.data.description}
+                            </p>
+                          </div>
                         </div>
-                      </div>
 
-                      <time
-                        class="post-list-date"
-                        datetime={post.data.pubDate.toISOString()}
-                      >
-                        {post.data.pubDate.toLocaleDateString("ko-KR")}
-                      </time>
-                    </div>
-                  </article>
-                </a>
-              ))}
+                        <time
+                          class="post-list-date"
+                          datetime={post.data.pubDate.toISOString()}
+                        >
+                          {post.data.pubDate.toLocaleDateString("ko-KR")}
+                        </time>
+                      </div>
+                    </article>
+                  </a>
+                );
+              })}
             </div>
           ) : (
             <p class="empty-message">아직 작성된 글이 없습니다.</p>
@@ -107,6 +114,8 @@ const fallbackCategory = "카테고리";
     width: 340px;
     height: 200px;
     flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
   }
 
   .post-list-content {

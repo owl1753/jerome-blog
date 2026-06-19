@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 
 const posts = await getCollection("blog");
 ---
@@ -30,29 +30,34 @@ const posts = await getCollection("blog");
       <h2 class="recent-posts-title">Recent Posts</h2>
       <div class="recent-posts-post-list">
         {
-          posts.map((post) => (
-            <a class="post-card-link" href={`/blog/${post.id}`}>
-              <div class="post-card-container">
-                <div class="post-card-thumbnail">
-                  <Image src={post.data.cover} alt={post.data.coverAlt} />
-                </div>
-                <div class="post-card-content">
-                  <div class="post-card-text-group">
-                    <span class="post-card-category">카테고리</span>
-                    <div class="post-card-content-group">
-                      <h3 class="post-card-title">{post.data.title}</h3>
-                      <p class="post-card-description">
-                        {post.data.description}
-                      </p>
+          posts.map(async (post) => {
+            const image = await getImage({ src: post.data.cover });
+
+            return (
+              <a class="post-card-link" href={`/blog/${post.id}`}>
+                <div class="post-card-container">
+                  <div
+                    style={`background-image: url(${image.src});`}
+                    class="post-card-thumbnail"
+                  />
+                  <div class="post-card-content">
+                    <div class="post-card-text-group">
+                      <span class="post-card-category">카테고리</span>
+                      <div class="post-card-content-group">
+                        <h3 class="post-card-title">{post.data.title}</h3>
+                        <p class="post-card-description">
+                          {post.data.description}
+                        </p>
+                      </div>
                     </div>
+                    <span class="post-card-date">
+                      {post.data.pubDate.toLocaleDateString("ko-KR")}
+                    </span>
                   </div>
-                  <span class="post-card-date">
-                    {post.data.pubDate.toLocaleDateString("ko-KR")}
-                  </span>
                 </div>
-              </div>
-            </a>
-          ))
+              </a>
+            );
+          })
         }
       </div>
     </div>
@@ -159,6 +164,7 @@ const posts = await getCollection("blog");
     align-items: flex-start;
     gap: 16px;
     flex-shrink: 0;
+    overflow: hidden;
 
     border-radius: 16px;
     background: var(--bg-default);
@@ -169,6 +175,10 @@ const posts = await getCollection("blog");
     width: 100%;
     height: 200px;
     align-self: stretch;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 16px 16px 0 0;
   }
 
   .post-card-content {
